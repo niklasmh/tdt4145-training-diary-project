@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.tdt4145.group131.database.DatabaseService;
 
 public class Main extends Application {
 
@@ -18,6 +19,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+        DatabaseService dbs = new DatabaseService();
+
+        dbs.printAllExerciseGroups();
+        // launch(args);
     }
 }
