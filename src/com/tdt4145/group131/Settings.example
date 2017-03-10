@@ -1,0 +1,10 @@
+package com.tdt4145.group131;
+
+public class Settings {
+
+    public static final String databaseServer = "localhost";
+    public static final String databaseName = "mydb";
+    public static final String databaseUsername = "testuser";
+    public static final String databaseSPassword = "testpassword";
+
+}
