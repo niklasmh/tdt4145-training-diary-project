@@ -1,6 +1,7 @@
 package com.tdt4145.group131.database.models;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by sindr on 3/10/2017.
@@ -8,8 +9,8 @@ import java.util.Date;
 public class Session {
 
     public int Id;
-    public Date StartTime;
-    public Date EndTime;
+    public Timestamp StartTime;
+    public Timestamp EndTime;
     public int Performance;
     public String Note;
 
