@@ -1,5 +1,6 @@
 package com.tdt4145.group131;
 
+import com.tdt4145.group131.database.models.ExerciseGroup;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,12 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DatabaseService dbs = new DatabaseService();
+
+
+        ExerciseGroup exg = new ExerciseGroup();
+        exg.name = "Crossfit";
+
+        dbs.saveNewExerciseGroup(exg);
 
         dbs.printAllExerciseGroups();
         // launch(args);
