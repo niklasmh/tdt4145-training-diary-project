@@ -1,34 +1,25 @@
 package com.tdt4145.group131;
 
 import com.tdt4145.group131.database.models.ExerciseGroup;
+import com.tdt4145.group131.database.DatabaseService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.tdt4145.group131.database.DatabaseService;
+import javafx.scene.*;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+    public void start(Stage stage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("/com/tdt4145/group131/application.fxml"));
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+        stage.setTitle("Training Diary");
+        stage.show();
     }
 
-
     public static void main(String[] args) {
-        DatabaseService dbs = new DatabaseService();
-
-
-        ExerciseGroup exg = new ExerciseGroup();
-        exg.name = "Crossfit";
-
-        dbs.saveNewExerciseGroup(exg);
-
-        dbs.printAllExerciseGroups();
-        // launch(args);
+        launch(args);
     }
 }
