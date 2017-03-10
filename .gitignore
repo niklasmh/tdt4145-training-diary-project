@@ -13,3 +13,5 @@ hs_err_pid*
 # IDE files and compiled code
 .idea
 out
+Settings.java
+*.iml
