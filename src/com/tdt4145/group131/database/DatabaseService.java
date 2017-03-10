@@ -58,6 +58,7 @@ public class DatabaseService {
 
             prepStatement.close();
             conn.close();
+            return success;
 
         } catch (Exception e) {
             e.printStackTrace();
