@@ -13,5 +13,5 @@ hs_err_pid*
 # IDE files and compiled code
 .idea
 out
-Settings.java
+src/com/tdt4145/group131/Settings.java
 *.iml
