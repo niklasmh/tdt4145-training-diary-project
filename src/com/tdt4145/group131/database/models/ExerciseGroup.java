@@ -7,6 +7,7 @@ public class ExerciseGroup {
 
     public int ID;
     public String name;
-    public ExerciseGroup group;
+    public int parent_group_id;
+    public ExerciseGroup parent_group;
 
 }

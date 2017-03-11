@@ -4,10 +4,9 @@ import com.mysql.jdbc.MySQLConnection;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import javax.activation.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.*;
+
 import com.tdt4145.group131.Settings;
 import com.tdt4145.group131.database.models.ExerciseGroup;
 import com.tdt4145.group131.database.models.Session;
@@ -21,53 +20,59 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class DatabaseService {
 
-    private MysqlDataSource getDatasource(){
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setServerName(Settings.databaseServer);
-        dataSource.setDatabaseName(Settings.databaseName);
-        dataSource.setUser(Settings.databaseUsername);
-        dataSource.setPassword(Settings.databaseSPassword);
 
-        return dataSource;
+    // Singleton
+    private static DatabaseService instance = null;
+    public static DatabaseService getInstance() throws SQLException{
+        if (instance == null) {
+            instance = new DatabaseService();
+        }
+        return instance;
     }
 
-    public void printAllExerciseGroups(){
-        MysqlDataSource dataSource = getDatasource();
-        try {
-            Connection conn = dataSource.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * from exercise_group");
 
-            while(rs.next()) {
-                System.out.println(rs.getString("name"));
-            }
+    private MysqlDataSource datasource;
+    private Connection connection;
 
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (Exception e){
-            e.printStackTrace();
+
+    private DatabaseService() throws SQLException {
+        this.datasource = getDatasource();
+        this.connection = getDatasource().getConnection();
+    }
+
+
+
+    public List<ExerciseGroup> getAllExerciseGroups() throws SQLException{
+        LinkedList<ExerciseGroup> listOfExerciseGroups = new  LinkedList<ExerciseGroup>();
+
+        ResultSet rs = connection.createStatement().executeQuery("SELECT * from exercise_group");
+
+        // Convert all results to exercise groups
+        while(rs.next()) {
+            ExerciseGroup g = new ExerciseGroup();
+            g.ID = rs.getInt("id");
+            g.name = rs.getString("name");
+            g.parent_group_id = rs.getInt("part_of");
         }
+
+        // Link exercise parent_group_id
+        for (int i = 0; i < listOfExerciseGroups.size(); i++) {
+
+        }
+
+        rs.close();
+        return listOfExerciseGroups;
     }
 
 
     public boolean saveNewExerciseGroup(ExerciseGroup exerciseGroup){
-        try {
-            Connection conn = getDatasource().getConnection();
+       try {
+           PreparedStatement prepStatement = connection.prepareStatement("INSERT INTO exercise_group (name) VALUES ( ? );");
+           prepStatement.setString(1, exerciseGroup.name);
+           return prepStatement.execute();
+       } catch (Exception e){}
+       return false;
 
-            PreparedStatement prepStatement = conn.prepareStatement("INSERT INTO exercise_group (name) VALUES ( ? );");
-            prepStatement.setString(1, exerciseGroup.name);
-
-            boolean success =  prepStatement.execute();
-
-            prepStatement.close();
-            conn.close();
-            return success;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     public boolean saveNewSession(Session session){
@@ -164,6 +169,16 @@ public class DatabaseService {
         }
 
         throw new NotImplementedException();
+    }
+
+    private MysqlDataSource getDatasource(){
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setServerName(Settings.databaseServer);
+        dataSource.setDatabaseName(Settings.databaseName);
+        dataSource.setUser(Settings.databaseUsername);
+        dataSource.setPassword(Settings.databaseSPassword);
+
+        return dataSource;
     }
 }
 
