@@ -7,6 +7,7 @@ import javax.activation.DataSource;
 import java.sql.*;
 import java.util.*;
 
+import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
 import com.tdt4145.group131.Settings;
 import com.tdt4145.group131.database.models.ExerciseGroup;
 import com.tdt4145.group131.database.models.Session;
@@ -41,7 +42,7 @@ public class DatabaseService {
     }
 
 
-
+    //region EXERCISE GROUP related methods
     public List<ExerciseGroup> getAllExerciseGroups() throws SQLException{
         LinkedList<ExerciseGroup> listOfExerciseGroups = new  LinkedList<ExerciseGroup>();
 
@@ -57,24 +58,64 @@ public class DatabaseService {
 
         // Link exercise parent_group_id
         for (int i = 0; i < listOfExerciseGroups.size(); i++) {
-
+            // TODO: Link exercisegroups with ID
         }
 
         rs.close();
         return listOfExerciseGroups;
     }
-
-
+    public ExerciseGroup getExerciseGroupById(int id) throws SQLException {
+        throw new NotImplementedException();
+    }
     public boolean saveNewExerciseGroup(ExerciseGroup exerciseGroup){
-       try {
-           PreparedStatement prepStatement = connection.prepareStatement("INSERT INTO exercise_group (name) VALUES ( ? );");
-           prepStatement.setString(1, exerciseGroup.name);
-           return prepStatement.execute();
-       } catch (Exception e){}
-       return false;
+        try {
+            PreparedStatement prepStatement = connection.prepareStatement("INSERT INTO exercise_group (name) VALUES ( ? );");
+            prepStatement.setString(1, exerciseGroup.name);
+            return prepStatement.execute();
+        } catch (Exception e){}
+        return false;
 
     }
+    public boolean updateExerciseGroup(ExerciseGroup exerciseGroup) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteExerciseGroup(ExerciseGroup exerciseGroup) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteExerciseGroupById(int id) throws SQLException {
+        throw new NotImplementedException();
+    }
+    //endregion
 
+    // region EXERCISE related methods
+    public List<Exercise> getAllExercises() throws SQLException {
+        throw new NotImplementedException();
+    }
+    public Exercise getExerciseById() throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean saveNewExercise(Exercise exercise) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean updateExercise(Exercise exercise) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteExercise(Exercise exercise) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteExerciseById(int id) throws SQLException {
+        throw new NotImplementedException();
+    }
+    //endregion
+
+    // region SESSION related methods
+
+    public List<Session> getAllSessions() throws SQLException {
+        throw new NotImplementedException();
+    }
+    public Exercise getSessionById() throws SQLException {
+        throw new NotImplementedException();
+    }
     public boolean saveNewSession(Session session){
         try {
             Connection conn = getDatasource().getConnection();
@@ -96,7 +137,25 @@ public class DatabaseService {
             return false;
         }
     }
-    public boolean saveNewWorkout(Workout workout){
+    public boolean updateSession(Session session) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteSession(Session session) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteSessionById(int id) throws SQLException {
+        throw new NotImplementedException();
+    }
+    // endregion
+
+    // region WORKOUT
+    public List<Workout> getAllWorkouts() throws SQLException {
+        throw new NotImplementedException();
+    }
+    public Workout getWorkoutById() throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean saveNewWorkout(Workout workout) throws SQLException {
         try {
             Connection conn = getDatasource().getConnection();
 
@@ -116,7 +175,18 @@ public class DatabaseService {
             return false;
         }
     }
+    public boolean updateWorkout(Workout workout) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteWorkout(Workout workout) throws SQLException {
+        throw new NotImplementedException();
+    }
+    public boolean deleteWorkoutById(Workout workout) throws SQLException {
+        throw new NotImplementedException();
+    }
+    // endregion
 
+    // region GOAL
     public boolean saveNewGoal(Goal goal){
         try {
             Connection conn = getDatasource().getConnection();
