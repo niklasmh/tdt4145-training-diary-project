@@ -41,15 +41,20 @@ public class Main extends Application {
 
             //dbs.saveNewSession(sesh);
             ExerciseGroup exg = new ExerciseGroup();
-            exg.name = "Abs";
+            exg.name = "Legs";
 
             dbs.saveNewExerciseGroup(exg);
 
-
+            ExerciseGroup eg = dbs.getExerciseGroupById(2);
+            eg.parent_group_id = 4;
+            dbs.updateExerciseGroup(eg);
 
             dbs.getAllExerciseGroups();
+            dbs.getExerciseGroupById(2);
             // launch(args);
         }
-        catch (Exception e) {}
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
