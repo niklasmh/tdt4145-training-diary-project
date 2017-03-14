@@ -35,7 +35,8 @@ public class ViewHandler {
 
     public int getMainMenuSelect () {
         return this.getIntFromQuestion(
-                "Menu:\n" +
+                "This is the main menu." +
+                        "\nMenu:" +
                         "\n[0] Go back" +
                         "\n[1] Exercises" +
                         "\n[2] Workout" +
@@ -55,7 +56,7 @@ public class ViewHandler {
      * @return int
      */
     public int getIntFromQuestion (String question, String format, String ...args) {
-        System.out.println(question);
+        System.out.println("\n\n" + question);
 
         int selected;
 
@@ -85,7 +86,7 @@ public class ViewHandler {
      * @return int
      */
     public String getStringFromQuestion (String question, String format, String ...args) {
-        System.out.println(question);
+        System.out.println("\n\n" + question);
 
         String selected;
 

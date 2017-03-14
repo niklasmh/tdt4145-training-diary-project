@@ -20,7 +20,6 @@ public class ExerciseHandler {
     }
 
     public void runHandler () {
-        System.out.println("This is the exercise menu.");
 
         while (true) {
             int menu = this.getMenuSelect();
@@ -43,7 +42,8 @@ public class ExerciseHandler {
 
     public int getMenuSelect () {
         return vh.getIntFromQuestion(
-                "Menu:" +
+                "This is the exercise menu." +
+                        "\nMenu / Exercise menu:" +
                         "\n[0] Go back" +
                         "\n[1] List all exercises" +
                         "\n[2] Add exercise" +
