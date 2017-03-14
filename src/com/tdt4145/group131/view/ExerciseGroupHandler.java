@@ -33,7 +33,30 @@ public class ExerciseGroupHandler {
                     this.listExerciseGroups();
                     break;
                 case 2:
-                    // Handle the add exercise group.
+                    String name = vh.getStringFromQuestion(
+                            "The exercise group name: ",
+                            "[A-Za-zøæåØÆÅ ]+",
+                            "Wrong format. Type group name again: "
+                    );
+
+                    String addPartOf = vh.getStringFromQuestion(
+                            "Want to add this exercise group as part of another?\n[Y]es or [n]o (default if empty): ",
+                            "^[YyNn]?$",
+                            "Wrong format. Type [y]es or [N]o again: "
+                    );
+
+                    if (addPartOf.matches("^[Yy]$")) {
+                        System.out.println("\n\nExercise groups to choose from:");
+                        ExerciseGroupHandler.listExerciseGroupsIndexed();
+                        int id = vh.getIntFromQuestion(
+                                "The exercise group to connect it to: ",
+                                "[0-9]+",
+                                "Wrong format. Type id again: "
+                        );
+                        this.addExerciseGroup(name, id);
+                    } else {
+                        this.addExerciseGroup(name, 0);
+                    }
                     break;
                 case 3:
                     System.out.println("Handle 3");
@@ -55,7 +78,37 @@ public class ExerciseGroupHandler {
         );
     }
 
-    public void listExerciseGroups () {
+    public void addExerciseGroup (String name, int parentGroupId) {
+        ExerciseGroup exerciseGroup = new ExerciseGroup();
+        exerciseGroup.name = name;
+        exerciseGroup.parent_group_id = parentGroupId;
+
+        ExerciseGroupService es = new ExerciseGroupService();
+
+        try {
+            es.saveNewExerciseGroup(exerciseGroup);
+            System.out.println("\nAdded exercise group to database!");
+        } catch (SQLException ex) {
+            System.out.println("Could not save exercise group. Try again later.");
+        } catch (Exception ex) {
+            System.out.println("Error in code. Please ask admin.");
+        }
+    }
+
+    public static void listExerciseGroupsIndexed () {
+        ExerciseGroupService egs = new ExerciseGroupService();
+
+        try {
+            List<ExerciseGroup> list = egs.getAllExerciseGroups();
+            for (ExerciseGroup eg : list) System.out.println("[" + (eg.ID) + "] " + eg.name);
+        } catch (SQLException ex) {
+            System.out.println("Could not fetch exercise groups. Try again later.");
+        } catch (Exception ex) {
+            System.out.println("Error in code. Please ask admin.");
+        }
+    }
+
+    public static void listExerciseGroups () {
         ExerciseGroupService egs = new ExerciseGroupService();
 
         try {
