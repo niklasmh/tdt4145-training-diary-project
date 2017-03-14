@@ -20,15 +20,68 @@ public class ViewHandler {
     }
 
     public int getMainMenuSelect () {
-        System.out.println("Menu:\nExercises 1\nWorkout 2\nSession 3\n\nType number: ");
+        return this.getIntFromQuestion(
+                "Menu:\nExercises 1\nWorkout 2\nSession 3\n\nType number: ",
+                "^[1-3]$",
+                "Please provide a number between 1 and 3: "
+        );
+    }
+
+    /**
+     * Get an int from a question.
+     * @param question The question to ask.
+     * @param format The format or range in regex.
+     * @param args Optional error and other stuff if nessesary.
+     * @return int
+     */
+    public int getIntFromQuestion (String question, String format, String ...args) {
+        System.out.println(question);
+
         int selected;
+
         while (true) {
             String str = this.scan.nextLine();
-            if (str.matches("^[1-3]$")) {
+
+            if (str.matches(format)) {
                 selected = Integer.parseInt(str);
                 break;
             }
-            System.out.println("Please provide a number between 1 and 3: ");
+
+            if (args.length > 0) {
+                System.out.println(args[0]);
+            } else {
+                System.out.println(question);
+            }
+        }
+
+        return selected;
+    }
+
+    /**
+     * Get a string from a question.
+     * @param question The question to ask.
+     * @param format The format or range in regex.
+     * @param args Optional error and other stuff if nessesary.
+     * @return int
+     */
+    public String getStringFromQuestion (String question, String format, String ...args) {
+        System.out.println(question);
+
+        String selected;
+
+        while (true) {
+            String str = this.scan.nextLine();
+
+            if (str.matches(format)) {
+                selected = str;
+                break;
+            }
+
+            if (args.length > 0) {
+                System.out.println(args[0]);
+            } else {
+                System.out.println(question);
+            }
         }
 
         return selected;
