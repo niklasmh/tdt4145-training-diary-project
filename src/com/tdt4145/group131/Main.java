@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
         try {
             ViewHandler vh = new ViewHandler();
-            vh.listExerciseGroups();
         } catch (Exception e) {
             e.printStackTrace();
         }
