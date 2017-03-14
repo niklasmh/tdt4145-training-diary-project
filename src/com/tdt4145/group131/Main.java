@@ -23,26 +23,38 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        DatabaseService dbs = new DatabaseService();
+        try{
+            DatabaseService dbs = DatabaseService.getInstance();
 
 
 
-        Session sesh=new Session();
+            Session sesh=new Session();
 
-        Timestamp time = new Timestamp(1234566543);
-
-        
-
-        sesh.Performance=9;
-        sesh.Note="Gikk bra";
-        sesh.StartTime=time;
-        sesh.EndTime=time;
-
-        dbs.saveNewSession(sesh);
+            Timestamp time = new Timestamp(1234566543);
 
 
 
-        dbs.printAllExerciseGroups();
-        launch(args);
+            sesh.Performance=9;
+            sesh.Note="Gikk bra";
+            sesh.StartTime=time;
+            sesh.EndTime=time;
+
+            //dbs.saveNewSession(sesh);
+            ExerciseGroup exg = new ExerciseGroup();
+            exg.name = "Legs";
+
+            dbs.saveNewExerciseGroup(exg);
+
+            ExerciseGroup eg = dbs.getExerciseGroupById(2);
+            eg.parent_group_id = 4;
+            dbs.updateExerciseGroup(eg);
+
+            dbs.getAllExerciseGroups();
+            dbs.getExerciseGroupById(2);
+            // launch(args);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
