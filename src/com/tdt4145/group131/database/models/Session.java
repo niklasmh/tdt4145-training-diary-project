@@ -8,12 +8,12 @@ import java.sql.Timestamp;
  */
 public class Session {
 
-    public int Id;
+    public int id;
     public Timestamp StartTime;
     public Timestamp EndTime;
     public int Performance;
     public String Note;
 
-    public Exercise Type;
+    public Workout Type;
 
 }

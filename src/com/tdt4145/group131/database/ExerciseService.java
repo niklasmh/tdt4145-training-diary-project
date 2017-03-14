@@ -57,7 +57,7 @@ public class ExerciseService {
     }
     public boolean saveNewExercise(Exercise exercise) throws SQLException {
         Connection con = DatabaseService.getDatasource().getConnection();
-        PreparedStatement prepstatement= con.prepareStatement("INSERT INTO exercise (name, description) VALUES (?,?) ");
+        PreparedStatement prepstatement= con.prepareStatement("INSERT INTO exercise (name, description) VALUES (?,?);");
         prepstatement.setString(1,exercise.name);
         prepstatement.setString(2,exercise.description);
         boolean didNotCockItUp = prepstatement.execute();
@@ -81,7 +81,7 @@ public class ExerciseService {
     }
     public boolean deleteExerciseById(int id) throws SQLException {
         try (Connection conn = DatabaseService.getDatasource().getConnection()) {
-            PreparedStatement prepStatement = conn.prepareStatement("DELETE FROM exercise WHERE id=?");
+            PreparedStatement prepStatement = conn.prepareStatement("DELETE FROM exercise WHERE id=?;");
             prepStatement.setInt(1, id);
             boolean result =  prepStatement.execute();
             conn.close();
