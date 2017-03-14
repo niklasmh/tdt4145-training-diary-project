@@ -37,11 +37,10 @@ public class ViewHandler {
         return this.getIntFromQuestion(
                 "This is the main menu." +
                         "\nMenu:" +
-                        "\n[0] Go back" +
+                        "\n[0] Quit" +
                         "\n[1] Exercises" +
                         "\n[2] Workout" +
                         "\n[3] Session" +
-                        "\n[4] Quit" +
                         "\n\nType number: ",
                 "^[0-4]$",
                 "Please provide a number between 0 and 4: "
