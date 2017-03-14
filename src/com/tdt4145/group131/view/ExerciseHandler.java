@@ -44,7 +44,7 @@ public class ExerciseHandler {
                             "Wrong format. Type description again: "
                     );
                     System.out.println("\n\nExercise groups to choose from:");
-                    this.listExerciseGroups();
+                    ExerciseGroupHandler.listExerciseGroupsIndexed();
                     int id = vh.getIntFromQuestion(
                             "The exercise group to connect it to: ",
                             "[0-9]+",
@@ -97,19 +97,6 @@ public class ExerciseHandler {
             System.out.println("\nAdded exercise to database!");
         } catch (SQLException ex) {
             System.out.println("Could not save exercise. Try again later.");
-        } catch (Exception ex) {
-            System.out.println("Error in code. Please ask admin.");
-        }
-    }
-
-    public void listExerciseGroups () {
-        ExerciseGroupService egs = new ExerciseGroupService();
-
-        try {
-            List<ExerciseGroup> list = egs.getAllExerciseGroups();
-            for (ExerciseGroup eg : list) System.out.println("[" + (eg.ID) + "] " + eg.name);
-        } catch (SQLException ex) {
-            System.out.println("Could not fetch exercise groups. Try again later.");
         } catch (Exception ex) {
             System.out.println("Error in code. Please ask admin.");
         }

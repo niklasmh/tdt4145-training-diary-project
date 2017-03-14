@@ -24,10 +24,14 @@ public class ViewHandler {
                     eh.runHandler();
                     break;
                 case 2:
-                    System.out.println("Meny 2");
+                    ExerciseGroupHandler egh = new ExerciseGroupHandler(scan, this);
+                    egh.runHandler();
                     break;
                 case 3:
-                    System.out.println("Meny 3");
+                    System.out.println("Workout");
+                    break;
+                case 4:
+                    System.out.println("Session");
                     break;
             }
         }
@@ -39,8 +43,9 @@ public class ViewHandler {
                         "\nMenu:" +
                         "\n[0] Quit" +
                         "\n[1] Exercises" +
-                        "\n[2] Workout" +
-                        "\n[3] Session" +
+                        "\n[2] Exercise groups" +
+                        "\n[3] Workout" +
+                        "\n[4] Session" +
                         "\n\nType number: ",
                 "^[0-4]$",
                 "Please provide a number between 0 and 4: "
