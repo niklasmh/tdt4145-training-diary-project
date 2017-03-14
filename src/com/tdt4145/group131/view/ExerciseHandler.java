@@ -1,9 +1,7 @@
 package com.tdt4145.group131.view;
 
-import com.tdt4145.group131.database.ExerciseGroupService;
 import com.tdt4145.group131.database.ExerciseService;
 import com.tdt4145.group131.database.models.Exercise;
-import com.tdt4145.group131.database.models.ExerciseGroup;
 
 import java.sql.SQLException;
 import java.util.List;

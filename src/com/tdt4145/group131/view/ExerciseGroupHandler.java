@@ -1,8 +1,6 @@
 package com.tdt4145.group131.view;
 
 import com.tdt4145.group131.database.ExerciseGroupService;
-import com.tdt4145.group131.database.ExerciseService;
-import com.tdt4145.group131.database.models.Exercise;
 import com.tdt4145.group131.database.models.ExerciseGroup;
 
 import java.sql.SQLException;
@@ -30,7 +28,7 @@ public class ExerciseGroupHandler {
                 case 0:
                     return;
                 case 1:
-                    this.listExerciseGroups();
+                    ExerciseGroupHandler.listExerciseGroups();
                     break;
                 case 2:
                     String name = vh.getStringFromQuestion(
