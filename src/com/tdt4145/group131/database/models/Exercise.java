@@ -6,4 +6,5 @@ package com.tdt4145.group131.database.models;
 public class Exercise {
     public String name;
     public String description;
+    public int id;
 }

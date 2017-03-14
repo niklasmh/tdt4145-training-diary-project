@@ -1,5 +1,6 @@
 package com.tdt4145.group131.database.models;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,4 +13,8 @@ public class Workout {
     public String Description;
 
     public List<Exercise> Exercises;
+
+    public Workout(){
+        Exercises = new LinkedList<>();
+    }
 }
