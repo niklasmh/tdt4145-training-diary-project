@@ -1,6 +1,8 @@
 package com.tdt4145.group131.view;
 
 import com.tdt4145.group131.database.ExerciseGroupService;
+import com.tdt4145.group131.database.ExerciseService;
+import com.tdt4145.group131.database.models.Exercise;
 import com.tdt4145.group131.database.models.ExerciseGroup;
 
 import java.sql.SQLException;
@@ -28,7 +30,7 @@ public class ExerciseHandler {
                 case 0:
                     return;
                 case 1:
-                    System.out.println("Handle 1");
+                    this.listExercises();
                     break;
                 case 2:
                     System.out.println("Handle 2");
@@ -54,7 +56,16 @@ public class ExerciseHandler {
     }
 
     public void listExercises () {
-        System.out.println();
+        ExerciseService es = new ExerciseService();
+
+        try {
+            List<Exercise> list = es.getAllExercises();
+            for (Exercise e : list) System.out.println(e.name);
+        } catch (SQLException ex) {
+            System.out.println("Could not fetch exercises. Try again later.");
+        } catch (Exception ex) {
+            System.out.println("Error in code. Please ask admin.");
+        }
     }
 
     public void listExerciseGroups () {
@@ -64,7 +75,9 @@ public class ExerciseHandler {
             List<ExerciseGroup> list = egs.getAllExerciseGroups();
             for (ExerciseGroup eg : list) System.out.println(eg.name);
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("Could not fetch exercise groups. Try again later.");
+        } catch (Exception ex) {
+            System.out.println("Error in code. Please ask admin.");
         }
     }
 }
