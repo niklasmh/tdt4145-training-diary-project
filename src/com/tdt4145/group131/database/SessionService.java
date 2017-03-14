@@ -35,7 +35,7 @@ public class SessionService {
             sesh.Note=rs.getString("note");
             sesh.Performance=rs.getInt("preformance");
             int workoutId = rs.getInt("workout_id");
-            sesh.Type=getWorkoutById(workoutId);
+            //sesh.Type=getWorkoutById(workoutId);
             sesh.id=rs.getInt("id");
             sessions.add(sesh);
         }
