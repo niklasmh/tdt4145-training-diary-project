@@ -33,7 +33,24 @@ public class ExerciseHandler {
                     this.listExercises();
                     break;
                 case 2:
-                    System.out.println("Handle 2");
+                    String name = vh.getStringFromQuestion(
+                            "The exercise name: ",
+                            "[A-Za-zøæåØÆÅ ]+",
+                            "Wrong format. Type name again: "
+                    );
+                    String description = vh.getStringFromQuestion(
+                            "The exercise description: ",
+                            "[A-Za-zøæåØÆÅ ]+",
+                            "Wrong format. Type description again: "
+                    );
+                    System.out.println("\n\nExercise groups to choose from:");
+                    this.listExerciseGroups();
+                    int id = vh.getIntFromQuestion(
+                            "The exercise group to connect it to: ",
+                            "[0-9]+",
+                            "Wrong format. Type id again: "
+                    );
+                    this.addExercise(name, description, id);
                     break;
                 case 3:
                     System.out.println("Handle 3");
@@ -68,12 +85,29 @@ public class ExerciseHandler {
         }
     }
 
+    public void addExercise (String name, String description, int groupId) {
+        Exercise exercise = new Exercise();
+        exercise.name = name;
+        exercise.description = description;
+
+        ExerciseService es = new ExerciseService();
+
+        try {
+            es.saveNewExercise(exercise, groupId);
+            System.out.println("\nAdded exercise to database!");
+        } catch (SQLException ex) {
+            System.out.println("Could not save exercise. Try again later.");
+        } catch (Exception ex) {
+            System.out.println("Error in code. Please ask admin.");
+        }
+    }
+
     public void listExerciseGroups () {
         ExerciseGroupService egs = new ExerciseGroupService();
 
         try {
             List<ExerciseGroup> list = egs.getAllExerciseGroups();
-            for (ExerciseGroup eg : list) System.out.println(eg.name);
+            for (ExerciseGroup eg : list) System.out.println("[" + (eg.ID) + "] " + eg.name);
         } catch (SQLException ex) {
             System.out.println("Could not fetch exercise groups. Try again later.");
         } catch (Exception ex) {
