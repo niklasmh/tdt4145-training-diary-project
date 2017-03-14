@@ -55,11 +55,12 @@ public class ExerciseService {
         return exerciseList.get(0);
 
     }
-    public boolean saveNewExercise(Exercise exercise) throws SQLException {
+    public boolean saveNewExercise(Exercise exercise, int groupId) throws SQLException {
         Connection con = DatabaseService.getDatasource().getConnection();
-        PreparedStatement prepstatement= con.prepareStatement("INSERT INTO exercise (name, description) VALUES (?,?);");
+        PreparedStatement prepstatement= con.prepareStatement("INSERT INTO exercise (name, description, exercise_group_id) VALUES (?,?,?);");
         prepstatement.setString(1,exercise.name);
         prepstatement.setString(2,exercise.description);
+        prepstatement.setInt(3,groupId);
         boolean didNotCockItUp = prepstatement.execute();
         con.close();
         return didNotCockItUp;
