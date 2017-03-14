@@ -16,14 +16,31 @@ public class ViewHandler {
     public ViewHandler () {
         this.scan = new Scanner(System.in);
         System.out.println("Welcome to your training diary!");
-        this.getMainMenuSelect();
+
+        while (true) {
+            int menu = this.getMainMenuSelect();
+            switch (menu) {
+                case 1:
+                    System.out.println("Meny 1");
+                    break;
+                case 2:
+                    System.out.println("Meny 2");
+                    break;
+                case 3:
+                    System.out.println("Meny 3");
+                    break;
+                case 4:
+                    System.out.println("Bye.");
+                    System.exit(0);
+            }
+        }
     }
 
     public int getMainMenuSelect () {
         return this.getIntFromQuestion(
-                "Menu:\nExercises 1\nWorkout 2\nSession 3\n\nType number: ",
-                "^[1-3]$",
-                "Please provide a number between 1 and 3: "
+                "Menu:\nExercises 1\nWorkout 2\nSession 3\nQuit 4\n\nType number: ",
+                "^[1-4]$",
+                "Please provide a number between 1 and 4: "
         );
     }
 
