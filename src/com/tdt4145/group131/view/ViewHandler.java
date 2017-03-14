@@ -103,18 +103,4 @@ public class ViewHandler {
 
         return selected;
     }
-
-    public void listExercises () {
-        System.out.println();
-    }
-
-    public void listExerciseGroups () {
-        ExerciseGroupService egs = new ExerciseGroupService();
-        try {
-            List<ExerciseGroup> list = egs.getAllExerciseGroups();
-            for (ExerciseGroup eg : list) System.out.println(eg.name);
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
 }
