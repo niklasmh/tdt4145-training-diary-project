@@ -1,10 +1,5 @@
 package com.tdt4145.group131.view;
 
-import com.tdt4145.group131.database.*;
-import com.tdt4145.group131.database.models.*;
-
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -19,9 +14,14 @@ public class ViewHandler {
 
         while (true) {
             int menu = this.getMainMenuSelect();
+
             switch (menu) {
+                case 0:
+                    System.out.println("Bye.");
+                    System.exit(0);
                 case 1:
-                    System.out.println("Meny 1");
+                    ExerciseHandler eh = new ExerciseHandler(scan, this);
+                    eh.runHandler();
                     break;
                 case 2:
                     System.out.println("Meny 2");
@@ -29,18 +29,21 @@ public class ViewHandler {
                 case 3:
                     System.out.println("Meny 3");
                     break;
-                case 4:
-                    System.out.println("Bye.");
-                    System.exit(0);
             }
         }
     }
 
     public int getMainMenuSelect () {
         return this.getIntFromQuestion(
-                "Menu:\nExercises 1\nWorkout 2\nSession 3\nQuit 4\n\nType number: ",
-                "^[1-4]$",
-                "Please provide a number between 1 and 4: "
+                "Menu:\n" +
+                        "\n[0] Go back" +
+                        "\n[1] Exercises" +
+                        "\n[2] Workout" +
+                        "\n[3] Session" +
+                        "\n[4] Quit" +
+                        "\n\nType number: ",
+                "^[0-4]$",
+                "Please provide a number between 0 and 4: "
         );
     }
 
