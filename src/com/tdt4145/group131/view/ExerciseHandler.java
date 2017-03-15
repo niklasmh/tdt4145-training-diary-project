@@ -1,7 +1,9 @@
 package com.tdt4145.group131.view;
 
+import com.tdt4145.group131.database.ExerciseGroupService;
 import com.tdt4145.group131.database.ExerciseService;
 import com.tdt4145.group131.database.models.Exercise;
+import com.tdt4145.group131.database.models.ExerciseGroup;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,6 +23,10 @@ public class ExerciseHandler {
 
     public void runHandler () {
 
+        int id;
+        String name;
+        String description;
+
         while (true) {
             int menu = this.getMenuSelect();
 
@@ -28,22 +34,22 @@ public class ExerciseHandler {
                 case 0:
                     return;
                 case 1:
-                    this.listExercises();
+                    ExerciseHandler.listExercises();
                     break;
                 case 2:
-                    String name = vh.getStringFromQuestion(
+                    name = vh.getStringFromQuestion(
                             "The exercise name: ",
                             "[A-Za-zøæåØÆÅ ]+",
                             "Wrong format. Type name again: "
                     );
-                    String description = vh.getStringFromQuestion(
+                    description = vh.getStringFromQuestion(
                             "The exercise description: ",
                             "[A-Za-zøæåØÆÅ ]+",
                             "Wrong format. Type description again: "
                     );
                     System.out.println("\n\nExercise groups to choose from:");
                     ExerciseGroupHandler.listExerciseGroupsIndexed();
-                    int id = vh.getIntFromQuestion(
+                    id = vh.getIntFromQuestion(
                             "The exercise group to connect it to: ",
                             "[0-9]+",
                             "Wrong format. Type id again: "
@@ -51,7 +57,36 @@ public class ExerciseHandler {
                     this.addExercise(name, description, id);
                     break;
                 case 3:
-                    System.out.println("Handle 3");
+                    System.out.println("\n\nHere are all exercises you can update:");
+                    ExerciseHandler.listExercisesIndexed();
+
+                    id = vh.getIntFromQuestion(
+                            "Which do you want to update? ",
+                            "[0-9]+",
+                            "Wrong format. Type id again: "
+                    );
+
+                    try {
+                        ExerciseService es = new ExerciseService();
+                        Exercise oldExercise = es.getExerciseById(id);
+
+                        name = vh.getStringFromQuestion(
+                                "New name: (Previous was: " + oldExercise.name + ", leave blank to remain name unchanged)",
+                                "[A-Za-zøæåØÆÅ ]*",
+                                "Wrong format. Type name again: "
+                        );
+
+                        description = vh.getStringFromQuestion(
+                                "New description: (Previous was: \n -> " + oldExercise.description + "\n, leave blank to remain name unchanged)",
+                                "[A-Za-zøæåØÆÅ ]*",
+                                "Wrong format. Type description again: "
+                        );
+
+                        this.updateExercise(oldExercise, name, description);
+                    } catch (SQLException ex) {
+                        System.out.println("Could not get previous exercise. Try again later or change another one.");
+                    }
+
                     break;
             }
         }
@@ -64,18 +99,32 @@ public class ExerciseHandler {
                         "\n[0] Go back" +
                         "\n[1] List all exercises" +
                         "\n[2] Add exercise" +
+                        "\n[3] Update exercise" +
                         "\n\nType number: ",
-                "^[0-2]$",
-                "Please provide a number between 0 and 2: "
+                "^[0-3]$",
+                "Please provide a number between 0 and 3: "
         );
     }
 
-    public void listExercises () {
+    public static void listExercises () {
         ExerciseService es = new ExerciseService();
 
         try {
             List<Exercise> list = es.getAllExercises();
             for (Exercise e : list) System.out.println(e.name);
+        } catch (SQLException ex) {
+            System.out.println("Could not fetch exercises. Try again later.");
+        } catch (Exception ex) {
+            System.out.println("Error in code. Please ask admin.");
+        }
+    }
+
+    public static void listExercisesIndexed () {
+        ExerciseService es = new ExerciseService();
+
+        try {
+            List<Exercise> list = es.getAllExercises();
+            for (Exercise e : list) System.out.println("[" + (e.id) + "] " + e.name);
         } catch (SQLException ex) {
             System.out.println("Could not fetch exercises. Try again later.");
         } catch (Exception ex) {
@@ -93,6 +142,24 @@ public class ExerciseHandler {
         try {
             es.saveNewExercise(exercise, groupId);
             System.out.println("\nAdded exercise to database!");
+        } catch (SQLException ex) {
+            System.out.println("Could not save exercise. Try again later.");
+        } catch (Exception ex) {
+            System.out.println("Error in code. Please ask admin.");
+        }
+    }
+
+    public void updateExercise (Exercise oldExercise, String name, String description) {
+        ExerciseService es = new ExerciseService();
+
+        Exercise exercise = new Exercise();
+        exercise.id = oldExercise.id;
+        exercise.name = name.length() > 0 ? name : oldExercise.name;
+        exercise.description = description.length() > 0 ? description : oldExercise.description;
+
+        try {
+            es.updateExercise(exercise);
+            System.out.println("\nUpdated exercise in database!");
         } catch (SQLException ex) {
             System.out.println("Could not save exercise. Try again later.");
         } catch (Exception ex) {

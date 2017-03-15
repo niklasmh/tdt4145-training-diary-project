@@ -68,7 +68,7 @@ public class ViewHandler {
             String str = this.scan.nextLine();
 
             if (str.matches(format)) {
-                selected = Integer.parseInt(str);
+                selected = str.length() > 0 ? Integer.parseInt(str) : 0;
                 break;
             }
 
