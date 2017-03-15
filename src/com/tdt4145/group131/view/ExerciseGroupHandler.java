@@ -60,7 +60,7 @@ public class ExerciseGroupHandler {
 
                     break;
                 case 3:
-                    System.out.println("\n\nHere are all exercises you can update:");
+                    System.out.println("\n\nHere are all exercise groups you can update:");
                     ExerciseGroupHandler.listExerciseGroupsIndexed();
 
                     int id = vh.getIntFromQuestion(
@@ -172,15 +172,13 @@ public class ExerciseGroupHandler {
         ExerciseGroupService es = new ExerciseGroupService();
 
         ExerciseGroup exerciseGroup = new ExerciseGroup();
+        exerciseGroup.ID = oldExerciseGroup.ID;
         exerciseGroup.name = name.length() > 0 ? name : oldExerciseGroup.name;
         exerciseGroup.parent_group_id = parentGroupId > 0 ? parentGroupId : oldExerciseGroup.parent_group_id;
 
         try {
-            if (es.updateExerciseGroup(exerciseGroup)) {
-                System.out.println("\nUpdated exercise group in database!");
-            } else {
-                System.out.println("\nCould not update exercise group in database.");
-            }
+            es.updateExerciseGroup(exerciseGroup);
+            System.out.println("\nUpdated exercise group in database!");
         } catch (SQLException ex) {
             System.out.println("Could not save exercise group. Try again later.");
         } catch (Exception ex) {
