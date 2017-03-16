@@ -13,8 +13,8 @@ import com.tdt4145.group131.database.WorkoutService;
 /**
  * Created by KGMK931 on 16/03/2017.
  */
-public class Statistics {
-    Map<String,String> getBest_session() throws SQLException {
+public class StatisticsService {
+    public static Map<String,String> getBest_session() throws SQLException {
         Map<String, String> map = new HashMap<>();
         List<Session> all_sessions = SessionService.getAllSessions();
         int bestPerformance=0;
@@ -43,7 +43,7 @@ public class Statistics {
         return map;
     }
 
-    String printAllNotes() throws SQLException{
+    public static String printAllNotes() throws SQLException{
         List<Session> all_sessions = SessionService.getAllSessions();
         String all_notes="";
         for (Session sesh : all_sessions){

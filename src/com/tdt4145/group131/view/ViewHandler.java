@@ -36,6 +36,10 @@ public class ViewHandler {
                     SessionHandler sh = new SessionHandler(scan, this);
                     sh.runHandler();
                     break;
+                case 5:
+                    StatisticsHandler stath = new StatisticsHandler(scan, this);
+                    stath.runHandler();
+                    break;
             }
         }
     }
@@ -49,9 +53,10 @@ public class ViewHandler {
                         "\n[2] Exercise groups" +
                         "\n[3] Workout" +
                         "\n[4] Session" +
+                        "\n[5] Statistics" +
                         "\n\nType number: ",
-                "^[0-4]$",
-                "Please provide a number between 0 and 4: "
+                "^[0-5]$",
+                "Please provide a number between 0 and 5: "
         );
     }
 
