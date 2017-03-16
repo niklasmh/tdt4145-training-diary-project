@@ -51,8 +51,8 @@ public class ViewHandler {
                         "\n[0] Quit" +
                         "\n[1] Exercises" +
                         "\n[2] Exercise groups" +
-                        "\n[3] Workout" +
-                        "\n[4] Session" +
+                        "\n[3] Workouts" +
+                        "\n[4] Sessions" +
                         "\n[5] Statistics" +
                         "\n\nType number: ",
                 "^[0-5]$",

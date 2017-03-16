@@ -92,7 +92,7 @@ public class WorkoutHandler {
                         "\n[0] Go back" +
                         "\n[1] List all workouts" +
                         "\n[2] Add workout" +
-                        "\n[3] Update workout" +
+                        "\n[3] Update workout (Coming soon...)" +
                         "\n[4] See details of a workout" +
                         "\n\nType number: ",
                 "^[0-4]$",
@@ -105,7 +105,7 @@ public class WorkoutHandler {
 
         try {
             List<Workout> list = ws.getAllWorkouts();
-            for (Workout w : list) System.out.println(w.Name);
+            for (Workout w : list) System.out.println(w.Name + " - " + w.Description);
         } catch (SQLException ex) {
             System.out.println("Could not fetch workout. Try again later.");
         } catch (Exception ex) {

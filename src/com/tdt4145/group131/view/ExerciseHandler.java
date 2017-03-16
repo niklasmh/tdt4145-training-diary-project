@@ -111,7 +111,7 @@ public class ExerciseHandler {
 
         try {
             List<Exercise> list = es.getAllExercises();
-            for (Exercise e : list) System.out.println(e.name);
+            for (Exercise e : list) System.out.println(e.name + " - " + e.description);
         } catch (SQLException ex) {
             System.out.println("Could not fetch exercises. Try again later.");
         } catch (Exception ex) {
@@ -124,7 +124,7 @@ public class ExerciseHandler {
 
         try {
             List<Exercise> list = es.getAllExercises();
-            for (Exercise e : list) System.out.println("[" + (e.id) + "] " + e.name);
+            for (Exercise e : list) System.out.println("[" + (e.id) + "] " + e.name + " - " + e.description);
         } catch (SQLException ex) {
             System.out.println("Could not fetch exercises. Try again later.");
         } catch (Exception ex) {
