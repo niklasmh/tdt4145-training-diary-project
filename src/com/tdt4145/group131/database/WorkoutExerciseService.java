@@ -13,7 +13,7 @@ import java.util.List;
  * Created by sindr on 3/14/2017.
  */
 public class WorkoutExerciseService {
-    public List<Exercise> getExercisesForWorkout(Workout workout) throws SQLException {
+    public static List<Exercise> getExercisesForWorkout(Workout workout) throws SQLException {
         Connection conn = DatabaseService.getDatasource().getConnection();
 
         LinkedList<Exercise> exercises = new LinkedList<>();

@@ -15,7 +15,7 @@ import java.util.LinkedList;
  */
 public class SessionService {
 
-    public List<Session> getAllSessions() throws SQLException {
+    public static List<Session> getAllSessions() throws SQLException {
         Connection conn=DatabaseService.getDatasource().getConnection();
         ResultSet rs= conn.createStatement().executeQuery("SELECT * FROM session;");
 
@@ -26,7 +26,7 @@ public class SessionService {
         return ListOfSessions;
     }
 
-    public List<Session> convertSessionResultSetToList(ResultSet rs) throws SQLException{
+    public static List<Session>  convertSessionResultSetToList(ResultSet rs) throws SQLException{
         List<Session> sessions = new LinkedList<>();
 
         while(rs.next()){
@@ -36,7 +36,7 @@ public class SessionService {
             sesh.Note=rs.getString("note");
             sesh.Performance=rs.getInt("preformance");
             int workoutId = rs.getInt("workout_id");
-            //sesh.Type=getWorkoutById(workoutId);
+            sesh.Type=WorkoutService.getWorkoutById(workoutId);
             sesh.id=rs.getInt("id");
             sessions.add(sesh);
         }
@@ -44,7 +44,7 @@ public class SessionService {
     }
 
 
-    public Session getSessionById(int id) throws SQLException {
+    public static Session getSessionById(int id) throws SQLException {
         Connection con= DatabaseService.getDatasource().getConnection();
         PreparedStatement prepstatement = con.prepareStatement("Select * from session WHERE id=?;");
         prepstatement.setInt(1,id);

@@ -24,12 +24,25 @@ public class WorkoutService {
         return workouts;
     }
 
-    public Exercise getWorkoutById() throws SQLException {
-        throw new NotImplementedException();
+    public static Workout getWorkoutById(int id) throws SQLException {
+        Connection con= DatabaseService.getDatasource().getConnection();
+        PreparedStatement prepstatement = con.prepareStatement("Select * from workout WHERE id=?;");
+        prepstatement.setInt(1,id);
+        ResultSet rs=prepstatement.executeQuery();
+
+        List<Workout> workoutList=convertResultSetToWorkout(rs);
+
+        if (workoutList.size()!=1){
+            return null;
+        }
+        rs.close();
+        con.close();
+
+        return workoutList.get(0);
     }
 
 
-    private List<Workout> convertResultSetToWorkout(ResultSet rs) throws SQLException{
+    private static List<Workout> convertResultSetToWorkout(ResultSet rs) throws SQLException{
         List<Workout> workouts = new LinkedList<>();
 
         WorkoutExerciseService wes = new WorkoutExerciseService();
