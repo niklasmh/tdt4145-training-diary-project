@@ -3,6 +3,7 @@ package com.tdt4145.group131.database;
 import com.tdt4145.group131.database.models.Exercise;
 import com.tdt4145.group131.database.models.Session;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import com.tdt4145.group131.database.WorkoutService;
 
 import javax.xml.transform.Result;
 import java.sql.*;
