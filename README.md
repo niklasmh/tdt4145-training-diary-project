@@ -38,7 +38,11 @@ Would recommend using the IntelliJ import functionality to get the database up a
 
 ### Structure:
 
-The UI is command-line based and uses classes called Handlers. Each handler represent a menu. For instance there is one ExerciseHandler, and one ExerciseGroupHandler, as they represent different menus. 
+The project consists of two packages:
+
+#### View-package
+
+The UI is command-line based and uses classes called Handlers. Each handler represent a menu. For instance there is one ExerciseHandler, and one ExerciseGroupHandler, as they represent different menus. You can "drill-down" into a menu, and the return back to the main menu. 
 
 #### Database-package
 The _handler_-classes connect to _services_. It is the services that talk to the database. The ExerciseService has methods for fetching a list of all Exercises, saving a new to the database, etc. There is one Service per Entity. In the code the Entities are represented by simple classes i n the database.models package. 
