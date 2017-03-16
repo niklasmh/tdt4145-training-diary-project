@@ -34,8 +34,6 @@ public class StatisticsHandler {
                     printBestSession();
                     break;
                 case 2:
-                    break;
-                case 3:
                     printStatisticsLastThirtyDays();
                     break;
             }
@@ -45,24 +43,28 @@ public class StatisticsHandler {
     public int getMenuSelect () {
         return vh.getIntFromQuestion(
                 "This is the statistics menu." +
-                        "\nMenu / statistics menu:" +
+                        "\nMenu / Statistics menu:" +
                         "\n[0] Go back" +
                         "\n[1] Get best session" +
-                        "\n[2] Get sessions this month" +
-                        "\n[3] Get statistics last 30 days" +
+                        "\n[2] Get statistics last 30 days" +
                         "\n\nType number: ",
-                "^[0-3]$",
-                "Please provide a number between 0 and 3: "
+                "^[0-2]$",
+                "Please provide a number between 0 and 2: "
         );
     }
 
     public void printBestSession(){
         try {
+            System.out.println("\n\nWhich workout do you want the best session for?");
             WorkoutHandler.listWorkoutsIndexed();
-            int workout_id = vh.getIntFromQuestion("Which workout do you want the best session for: ", "[0-9]*", "Try that again: ");
+            int workout_id = vh.getIntFromQuestion(
+                    "Type in number for workout: ",
+                    "[0-9]+",
+                    "Try that again: "
+            );
             Workout selected_workout = WorkoutService.getWorkoutById(workout_id);
             Session best_session = SessionService.getBestSessionByWorkout(selected_workout);
-            System.out.println("The best session was:");
+            System.out.println("\n\nThe best session was:");
             System.out.println("Start time: " + best_session.StartTime.toString());
             System.out.println("End time: " + best_session.EndTime.toString());
             System.out.println("Performance: " + best_session.Performance);
@@ -75,9 +77,8 @@ public class StatisticsHandler {
     public void printStatisticsLastThirtyDays(){
         try {
             Map<String, String> info  = StatisticsService.getStatisticsForLastMonth();
-            System.out.println("Statistics last 30 days:");
-            for (Map.Entry<String, String> entry : info.entrySet())
-            {
+            System.out.println("\n\nStatistics last 30 days:");
+            for (Map.Entry<String, String> entry : info.entrySet()) {
                 System.out.println(entry.getKey() + entry.getValue());
             }
         } catch (SQLException e) {

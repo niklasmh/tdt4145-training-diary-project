@@ -61,18 +61,19 @@ public class SessionHandler {
     public void listAllSessions(boolean withIndex){
         SessionService ss = new SessionService();
 
-        try{
+        try {
             List<Session> sessionList = SessionService.getAllSessions();
-            System.out.println("[id] Workout performed - Session start - session end");
+            System.out.println("[id] Workout performed - Session start - Session end - Details");
             for (Session s : sessionList) {
                 if (withIndex){
                     System.out.print("[" + s.id + "] ");
                 }
-                System.out.println(s.Type.Name + " - " + s.StartTime.toString() + " - " + s.EndTime.toString());
+                System.out.print(s.Type.Name + " - " + s.StartTime.toString() + " - " + s.EndTime.toString() + " - Performance: " + s.Performance);
+                System.out.println(s.Note == null ? "" : (", Note: " + s.Note));
             }
-        }catch (SQLException sqlExeption){
+        } catch (SQLException sqlExeption){
             System.out.println("We're unable to fetch the sessions at this time");
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Something's seriously wrong...");
         }
     }
@@ -83,24 +84,29 @@ public class SessionHandler {
         int workout_id = vh.getIntFromQuestion(
                 "Input workout id:",
                 "[0-9]*",
-                "Try again with a valid id");
+                "Try again with a valid id"
+        );
         System.out.print("Time is in the following format: yyyy-mm-dd hh:mm:ss");
         Timestamp start_time = vh.getTimestampFromQuestion(
                 "When did the session start: ",
                 "",
-                "Please enter a valid date");
+                "Please enter a valid date"
+        );
         Timestamp end_time = vh.getTimestampFromQuestion(
                 "When did the session end: ",
                 "",
-                "Please enter a valid time");
+                "Please enter a valid time"
+        );
         int performance = vh.getIntFromQuestion(
                 "Rate your performance [0-9]: ",
                 "[0-9]{1}",
-                "Wrong format. Type performance again: ");
+                "Wrong format. Type performance again: "
+        );
         String note = vh.getStringFromQuestion(
                 "Enter an optional note",
                 "[A-Za-zøæåØÆÅ. ]+",
-                "Wrong format. Type note again: ");
+                "Wrong format. Type note again: "
+        );
 
         try {
             Workout workout = WorkoutService.getWorkoutById(workout_id);
@@ -112,7 +118,7 @@ public class SessionHandler {
 
             SessionService ss = new SessionService();
             ss.saveNewSession(new_session);
-        }catch (SQLException sqlException){
+        } catch (SQLException sqlException) {
             System.out.println("Something went wrong on our end. Try again");
         }
     }
