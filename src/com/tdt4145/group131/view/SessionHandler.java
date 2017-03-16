@@ -47,8 +47,8 @@ public class SessionHandler {
 
     public int getMenuSelect () {
         return vh.getIntFromQuestion(
-                "This is the exercise menu." +
-                        "\nMenu / Exercise menu:" +
+                "This is the session menu." +
+                        "\nMenu / Session menu:" +
                         "\n[0] Go back" +
                         "\n[1] List all sessions" +
                         "\n[2] Add session" +

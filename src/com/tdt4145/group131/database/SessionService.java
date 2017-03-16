@@ -2,9 +2,11 @@ package com.tdt4145.group131.database;
 
 import com.tdt4145.group131.database.models.Exercise;
 import com.tdt4145.group131.database.models.Session;
+import com.tdt4145.group131.database.models.Workout;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import com.tdt4145.group131.database.WorkoutService;
 
+import javax.xml.crypto.Data;
 import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.List;
@@ -111,4 +113,22 @@ public class SessionService {
             return result;
         }
     }
+
+    public static Session getBestSessionByWorkout(Workout workout) throws SQLException {
+        Connection conn = DatabaseService.getDatasource().getConnection();
+
+        PreparedStatement statment = conn.prepareStatement("SELECT * FROM session WHERE workout_id=? AND start_datetime BETWEEN (CURRENT_DATE() - INTERVAL 1 WEEK) AND (CURDATE() + INTERVAL 1 DAY) ORDER BY performance DESC LIMIT 1");
+        statment.setInt(1, workout.Id);
+
+        ResultSet rs = statment.executeQuery();
+
+        List<Session> best_session = convertSessionResultSetToList(rs);
+
+        if (best_session.size() != 1) {
+            return null;
+        }
+        return best_session.get(0);
+    }
+
+
 }
