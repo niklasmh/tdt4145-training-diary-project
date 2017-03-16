@@ -18,7 +18,7 @@ All we've done up until this point is creating the workout, but we haven't saved
 
 ##### Other features:
 
-We also support fetching statistics about your best session of a workout, and about the aggregated data from your sessions in the last month. 
+We also support fetching statistics about your best session of a workout, and about the aggregated data from your sessions in the last 30 days. 
 
 
 ## Usage
