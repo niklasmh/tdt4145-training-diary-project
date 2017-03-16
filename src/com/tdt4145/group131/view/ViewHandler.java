@@ -30,10 +30,10 @@ public class ViewHandler {
                 case 3:
                     WorkoutHandler wh = new WorkoutHandler(scan, this);
                     wh.runHandler();
-                    System.out.println("Workout");
                     break;
                 case 4:
-                    System.out.println("Session");
+                    SessionHandler sh = new SessionHandler(scan, this);
+                    sh.runHandler();
                     break;
             }
         }

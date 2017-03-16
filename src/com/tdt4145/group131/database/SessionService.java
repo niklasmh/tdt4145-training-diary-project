@@ -34,7 +34,7 @@ public class SessionService {
             sesh.EndTime=rs.getTimestamp("end_datetime");
             sesh.StartTime=rs.getTimestamp("start_datetime");
             sesh.Note=rs.getString("note");
-            sesh.Performance=rs.getInt("preformance");
+            sesh.Performance=rs.getInt("performance");
             int workoutId = rs.getInt("workout_id");
             sesh.Type=WorkoutService.getWorkoutById(workoutId);
             sesh.id=rs.getInt("id");
