@@ -1,5 +1,6 @@
 package com.tdt4145.group131.view;
 
+import java.sql.Timestamp;
 import java.util.Scanner;
 
 /**
@@ -28,10 +29,16 @@ public class ViewHandler {
                     egh.runHandler();
                     break;
                 case 3:
-                    System.out.println("Workout");
+                    WorkoutHandler wh = new WorkoutHandler(scan, this);
+                    wh.runHandler();
                     break;
                 case 4:
-                    System.out.println("Session");
+                    SessionHandler sh = new SessionHandler(scan, this);
+                    sh.runHandler();
+                    break;
+                case 5:
+                    StatisticsHandler stath = new StatisticsHandler(scan, this);
+                    stath.runHandler();
                     break;
             }
         }
@@ -46,9 +53,10 @@ public class ViewHandler {
                         "\n[2] Exercise groups" +
                         "\n[3] Workout" +
                         "\n[4] Session" +
+                        "\n[5] Statistics" +
                         "\n\nType number: ",
-                "^[0-4]$",
-                "Please provide a number between 0 and 4: "
+                "^[0-5]$",
+                "Please provide a number between 0 and 5: "
         );
     }
 
@@ -99,6 +107,36 @@ public class ViewHandler {
 
             if (str.matches(format)) {
                 selected = str;
+                break;
+            }
+
+            if (args.length > 0) {
+                System.out.println(args[0]);
+            } else {
+                System.out.println(question);
+            }
+        }
+
+        return selected;
+    }
+    /**
+     * Get a string from a question.
+     * @param question The question to ask.
+     * @param format The format or range in regex.
+     * @param args Optional error and other stuff if nessesary.
+     * @return int
+     */
+    public Timestamp getTimestampFromQuestion (String question, String format, String ...args) {
+        System.out.println("\n\n" + question);
+
+        Timestamp selected;
+
+        while (true) {
+            String str = this.scan.nextLine();
+
+            if (true) { //str.matches(format)
+                selected = Timestamp.valueOf(str);
+
                 break;
             }
 

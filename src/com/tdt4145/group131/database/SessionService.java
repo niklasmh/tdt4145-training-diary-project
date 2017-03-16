@@ -2,9 +2,11 @@ package com.tdt4145.group131.database;
 
 import com.tdt4145.group131.database.models.Exercise;
 import com.tdt4145.group131.database.models.Session;
+import com.tdt4145.group131.database.models.Workout;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import com.tdt4145.group131.database.WorkoutService;
 
+import javax.xml.crypto.Data;
 import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.List;
@@ -34,7 +36,7 @@ public class SessionService {
             sesh.EndTime=rs.getTimestamp("end_datetime");
             sesh.StartTime=rs.getTimestamp("start_datetime");
             sesh.Note=rs.getString("note");
-            sesh.Performance=rs.getInt("preformance");
+            sesh.Performance=rs.getInt("performance");
             int workoutId = rs.getInt("workout_id");
             sesh.Type=WorkoutService.getWorkoutById(workoutId);
             sesh.id=rs.getInt("id");
@@ -64,11 +66,13 @@ public class SessionService {
         try {
             Connection conn = DatabaseService.getDatasource().getConnection();
 
-            PreparedStatement prepStatement = conn.prepareStatement("INSERT INTO session (preformance, note, start_datetime, end_datetime ) VALUES ( ?,?,?,? );");
+            PreparedStatement prepStatement = conn.prepareStatement("INSERT INTO session (performance, note, start_datetime, end_datetime, workout_id ) VALUES ( ?,?,?,?,? );");
             prepStatement.setInt(1, session.Performance);
             prepStatement.setString(2, session.Note);
             prepStatement.setTimestamp(3, session.StartTime);
             prepStatement.setTimestamp(4, session.EndTime);
+            prepStatement.setInt(5, session.Type.Id);
+
 
             boolean success =  prepStatement.execute();
 
@@ -109,4 +113,22 @@ public class SessionService {
             return result;
         }
     }
+
+    public static Session getBestSessionByWorkout(Workout workout) throws SQLException {
+        Connection conn = DatabaseService.getDatasource().getConnection();
+
+        PreparedStatement statment = conn.prepareStatement("SELECT * FROM session WHERE workout_id=? AND start_datetime BETWEEN (CURRENT_DATE() - INTERVAL 1 WEEK) AND (CURDATE() + INTERVAL 1 DAY) ORDER BY performance DESC LIMIT 1");
+        statment.setInt(1, workout.Id);
+
+        ResultSet rs = statment.executeQuery();
+
+        List<Session> best_session = convertSessionResultSetToList(rs);
+
+        if (best_session.size() != 1) {
+            return null;
+        }
+        return best_session.get(0);
+    }
+
+
 }

@@ -25,7 +25,7 @@ public class WorkoutExerciseService {
         ExerciseService es = new ExerciseService();
 
         while (rs.next()){
-            int exercise_id = rs.getInt(0);
+            int exercise_id = rs.getInt(1);
             exercises.add(es.getExerciseById(exercise_id));
         }
         return exercises;
