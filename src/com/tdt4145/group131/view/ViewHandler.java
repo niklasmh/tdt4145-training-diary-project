@@ -1,5 +1,6 @@
 package com.tdt4145.group131.view;
 
+import java.sql.Timestamp;
 import java.util.Scanner;
 
 /**
@@ -101,6 +102,36 @@ public class ViewHandler {
 
             if (str.matches(format)) {
                 selected = str;
+                break;
+            }
+
+            if (args.length > 0) {
+                System.out.println(args[0]);
+            } else {
+                System.out.println(question);
+            }
+        }
+
+        return selected;
+    }
+    /**
+     * Get a string from a question.
+     * @param question The question to ask.
+     * @param format The format or range in regex.
+     * @param args Optional error and other stuff if nessesary.
+     * @return int
+     */
+    public Timestamp getTimestampFromQuestion (String question, String format, String ...args) {
+        System.out.println("\n\n" + question);
+
+        Timestamp selected;
+
+        while (true) {
+            String str = this.scan.nextLine();
+
+            if (true) { //str.matches(format)
+                selected = Timestamp.valueOf(str);
+
                 break;
             }
 

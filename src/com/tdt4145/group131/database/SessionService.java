@@ -64,11 +64,13 @@ public class SessionService {
         try {
             Connection conn = DatabaseService.getDatasource().getConnection();
 
-            PreparedStatement prepStatement = conn.prepareStatement("INSERT INTO session (preformance, note, start_datetime, end_datetime ) VALUES ( ?,?,?,? );");
+            PreparedStatement prepStatement = conn.prepareStatement("INSERT INTO session (performance, note, start_datetime, end_datetime, workout_id ) VALUES ( ?,?,?,?,? );");
             prepStatement.setInt(1, session.Performance);
             prepStatement.setString(2, session.Note);
             prepStatement.setTimestamp(3, session.StartTime);
             prepStatement.setTimestamp(4, session.EndTime);
+            prepStatement.setInt(5, session.Type.Id);
+
 
             boolean success =  prepStatement.execute();
 
